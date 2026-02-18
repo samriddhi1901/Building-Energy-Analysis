@@ -54,3 +54,10 @@ The following analysis was conducted:
 
 ## 📊 Project Structure
 
+
+### Machine Learning Based Anomaly Detection
+
+Isolation Forest and One-Class SVM were implemented to detect abnormal electricity consumption patterns.
+
+These unsupervised models learn normal energy behavior and automatically identify anomalies.
+
