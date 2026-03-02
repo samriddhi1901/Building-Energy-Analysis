@@ -1,5 +1,6 @@
-⚡ Building Energy Consumption Anomaly Detection
-📌 Project Overview
+# Building-energy-anomaly-detection-ml
+
+## 📌 Project Overview
 
 This project performs large-scale time-series analysis and machine learning–based anomaly detection on commercial building electricity consumption data.
 
@@ -19,7 +20,7 @@ This project follows a complete ML pipeline:
 
 Data Loading → Data Cleaning → Feature Engineering → Anomaly Detection
 
-📂 Dataset Information
+## 📂 Dataset Information
 
 Dataset: Building Data Genome Project 2
 
@@ -35,8 +36,8 @@ Type: Multivariate Time-Series Data
 
 Each row represents a timestamp and each column represents a building’s electricity consumption.
 
-🔍 Data Preprocessing & Analysis
-1️⃣ Data Understanding
+## 🔍 Data Preprocessing & Analysis
+### 1️⃣ Data Understanding
 
 Loaded large dataset efficiently
 
@@ -44,7 +45,7 @@ Converted timestamp to datetime format
 
 Verified dataset dimensions and structure
 
-2️⃣ Missing Value Handling
+### 2️⃣ Missing Value Handling
 
 Total missing values identified: 1,312,095
 
@@ -52,7 +53,7 @@ Applied forward fill method to maintain time continuity
 
 Preserved all rows after cleaning
 
-3️⃣ Feature Engineering
+### 3️⃣ Feature Engineering
 
 Generated time-based and statistical features:
 
@@ -70,39 +71,81 @@ Lag features (1-hour and 24-hour)
 
 These features help the model learn temporal consumption patterns.
 
-🤖 Machine Learning – Anomaly Detection
+## 🤖 Machine Learning – Anomaly Detection
 
-Unsupervised learning techniques were applied to detect abnormal electricity consumption.
+Unsupervised machine learning techniques were applied to detect abnormal electricity consumption patterns in commercial buildings.
 
-✅ Isolation Forest
+The system uses three anomaly detection models to improve reliability.
+
+### ✅ 1️⃣ Isolation Forest
 
 Contamination: 1%
 
 Learns normal energy usage behavior
 
-Detects rare consumption deviations
+Detects rare global deviations in consumption
 
-📊 Results
+#### 📊 Results
 
 Total Anomalies Detected: 175
 
 Anomaly Percentage: 1%
 
-Anomalies indicate unusual spikes or drops in electricity usage that may represent:
+Results saved as: ml_anomaly_results.csv
 
-Equipment malfunction
+Isolation Forest isolates rare observations by randomly partitioning the data. Shorter path length = higher anomaly probability.
 
-Sensor irregularities
+### ✅ 2️⃣ Local Outlier Factor (LOF)
 
-Operational inefficiencies
+n_neighbors: 20
 
-Abnormal building usage
+Contamination: 1%
 
-The final results are saved as:
+Data scaled using StandardScaler
 
-ml_anomaly_results.csv
+LOF compares each data point to its nearest neighbors and identifies points that have significantly lower local density.
 
-🛠 Technologies Used
+#### 📊 Results
+
+Detects anomalies based on neighborhood density
+
+Results saved as: Lof_anomaly_results.csv
+
+Useful for detecting local irregularities in energy consumption patterns.
+
+### ✅ 3️⃣ Robust Covariance (Elliptic Envelope)
+
+Contamination: 1%
+
+Uses Mahalanobis distance
+
+Data scaled using StandardScaler
+
+This model assumes normal energy consumption follows a Gaussian distribution and creates an elliptical boundary around normal data points.
+
+#### 📊 Results
+
+Detects anomalies outside the statistical boundary
+
+Results saved as: ml_anomaly_results.csv
+
+Called "robust" because it reduces the influence of extreme values during covariance estimation.
+
+## 🚀 Why Multiple Models?
+
+Since the dataset does not contain labeled anomalies, all models are unsupervised.
+
+Each model detects different types of anomalies:
+
+Isolation Forest → Global anomalies
+
+LOF → Local density anomalies
+
+Robust Covariance → Statistical distribution anomalies
+
+Using multiple approaches increases reliability in detecting unusual energy behavior.
+
+# Technologies Used
 
 Python
 
@@ -116,7 +159,7 @@ VS Code
 
 Git & GitHub
 
-📁 Project Structure
+# 📁 Project Structure
 Building-Energy-Analysis
 │
 ├── data/
@@ -131,5 +174,3 @@ Building-Energy-Analysis
 ├── main.py
 ├── ml_anomaly_results.csv
 ├── README.md
-
-🚀 How to Run
